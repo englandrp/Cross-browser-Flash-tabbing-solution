@@ -1,0 +1,45 @@
+<!--
+/**
+* Cross browser tabbing solution/engine for Flash projects
+* 
+* Released under MIT license:
+* http://www.opensource.org/licenses/mit-license.php
+* 
+* @author Richard England 2011
+* @see http://www.richardengland.co.uk
+* @version 0.1
+*/
+
+--><!DOCTYPE HTML>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- required for embedding swf in page -->
+<script type="text/javascript" src="js/swfobject.js" charset="utf-8"></script>
+<!-- required for tabbing JS -->
+<script type="text/javascript" src="js/jquery.js" charset="utf-8"></script>
+<!-- this is the tabbing JS core -->
+<script type="text/javascript" src="js/tabbing.js" charset="utf-8"></script>
+
+<title>Cross browser Flash tabbing solution</title>
+</head>
+<body>
+	
+    <div id="flashreplace">
+    </div>
+	
+	<script type="text/javascript">
+		
+		var flashvars = {};
+
+		var params = {};
+		params.allowfullscreen = "true";
+		params.allowscriptaccess = "always";
+		
+		var attributes = {};
+		attributes.id = "flashplayer";
+		swfobject.embedSWF("swf/CrossBrowserFlashTabbing.swf", "flashreplace", "550", "400", "9.0.0", "expressInstall.swf", flashvars, params, attributes);
+		
+	</script>
+
+</body>
+</html>
