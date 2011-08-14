@@ -1,0 +1,105 @@
+/**
+* Cross browser tabbing solution/engine for Flash projects
+* 
+* Released under MIT license:
+* http://www.opensource.org/licenses/mit-license.php
+* 
+* @author Richard England 2011
+* @see http://www.richardengland.co.uk
+* @version 0.1
+*/
+
+The problem - see http://kb2.adobe.com/cps/155/tn_15586.html
+
+A Flash movie embedded in an HTML page does not receive tabbing focus/key events when 
+the page first loads in a web browser.
+
+-------------------------------------------------------------------------------------
+
+Reason
+
+In order for a Flash movie to capture key events, the movie itself must first be given 
+focus from the browser. Web browsers do not automatically give keyboard focus to Flash movies, 
+or any other embedded content.
+
+-------------------------------------------------------------------------------------
+
+The Solution
+
+The code provided is a combination of AS3 and Javascript/JQuery. It will loop through all 
+InteractiveObject and DisplayObjectContainer objects, checking to see if they have accessibility 
+properties (tabIndex, accessibility name and description, etc). It will pass an array of these 
+properties back to the page through ExternalInterface to JS functions, which will then build an 
+"invisible" HTML form off the screen.
+
+Each element of that HTML form will represent an InteractiveObject in Flash, and can be tabbed 
+and entered, passing the relevant "MouseEvent.CLICK" event back to the Flash player. in effect 
+this allows the user to appear to be seamlessly tabbing through fully accessible Flash content, 
+and interactiing with it, when in fact they are actually interacting with a HTML form, with 
+javascript focus and click events being passed back to the Flash object.
+
+-------------------------------------------------------------------------------------
+
+Instructions
+
+Add the tabbing.js (also swfobject and jquery required) to your html:
+
+<!-- required for embedding swf in page -->
+<script type="text/javascript" src="js/swfobject.js" charset="utf-8"></script>
+<!-- required for tabbing JS functionality -->
+<script type="text/javascript" src="js/jquery.js" charset="utf-8"></script>
+<!-- this is the tabbing JS core -->
+<script type="text/javascript" src="js/tabbing.js" charset="utf-8"></script>
+
+
+Add the Flash object to your page
+
+<div id="flashreplace">
+</div>
+	
+<script type="text/javascript">
+		
+	var flashvars = {};
+
+	var params = {};
+	params.allowfullscreen = "true";
+	params.allowscriptaccess = "always";
+		
+	var attributes = {};
+	attributes.id = "flashplayer";
+	swfobject.embedSWF("swf/CrossBrowserFlashTabbing.swf", "flashreplace", "550", "400", "9.0.0", "expressInstall.swf", flashvars, params, attributes);
+</script>
+
+
+
+Add the following import to your Main constructor class:
+
+
+import com.richardengland.utils.Tabbing;
+
+
+
+Create the tabbing object in your initialisation code:
+
+
+tabbing = new Tabbing(this);
+
+
+If you want to refresh the tabbing list (which will build a new html form to reflect changes in the user interface):
+
+tabbing.refreshTabbingList();
+
+
+If you want to create a limited tabbing list (e.g. for a "popup" interface window in your GUI):
+
+tabbing.createNewTabsFor( popupObject ); 
+
+
+... and that's it!
+
+Hope it helps someone...
+
+
+
+
+
