@@ -95,6 +95,7 @@ package com.richardengland.utils {
 					_flashObjID = ExternalInterface.objectID;
 				}
 				if (_flashObjID) {
+					ExternalInterface.addCallback("refreshTabbingList", refreshTabbingList);
 					ExternalInterface.addCallback("sendEvent", sendEvent);
 					ExternalInterface.addCallback("sendTabAction", sendTabAction);
 					ExternalInterface.addCallback("sendTextUpdate", sendTextUpdate);
@@ -108,6 +109,7 @@ package com.richardengland.utils {
 				}
 				
 				if (ExternalInterface.available && !_flashObjID) {
+					ExternalInterface.addCallback("refreshTabbingList", refreshTabbingList);
 					ExternalInterface.addCallback("sendEvent", sendEvent);
 					ExternalInterface.addCallback("sendTabAction", sendTabAction);
 					ExternalInterface.addCallback("sendTextUpdate", sendTextUpdate);
@@ -347,7 +349,8 @@ package com.richardengland.utils {
 			fRemoveDup(_tabbingList);
 			
 			_tabbingList.sortOn("tabIndex", Array.NUMERIC); // (order);
-
+			
+			trace("length", _tabbingList.length);
 			//only do following if array has changed
 			if (_oTabbingList.length != _tabbingList.length || _forceTabReset ) {
 			//send _tabbingList array back to javascript

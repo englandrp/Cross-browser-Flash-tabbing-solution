@@ -14,6 +14,7 @@ package {
 	import fl.controls.Button;
 	import flash.accessibility.*;
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.FocusEvent;
 	import com.richardengland.utils.Tabbing;
@@ -28,12 +29,19 @@ package {
 		public function Main()
 		{	
 			
+			if (stage) init();
+			else addEventListener(Event.ADDED_TO_STAGE, init);
+			
+		}
+		
+		private function init(e:Event = null):void 
+		{
 			/** 
 			 * call this to reset the overall tabbing list for the flash player object
 			 * ...that's it! The rest is handled by the tabbing object. Easy! See the HTML for the rest of the setup
 			 **/
 			tabbing = new Tabbing(this);
-			tabbing.refreshTabbingList();
+			//tabbing.refreshTabbingList(); //this is now called by the playerReady function due to ExternalInterface event order
 			
 			//...and this is just setting up the example elements and event handlers
 			popup.visible = false;
