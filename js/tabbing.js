@@ -23,6 +23,10 @@ function playerReady( obj ){
 	//add a form to the document and places it at same top offset as flash player object
 	$("body").prepend('<form name="form1" id="form1" style="position:absolute; top:'+topV+'px; left:-1500px;"></form>');
 
+	//flashObj returning no name for some reason?
+	t = thisMovie("flashplayer");
+	t.refreshTabbingList();
+	
 }
 
 doOnce = false;
@@ -62,7 +66,7 @@ function addFormField( name, accessName, accessDesc, tabIndex, theTop) {
 
 function addTextField( name, accessName, accessDesc, tabIndex, theTop ) {
 
-	//alert( name );
+
 	var id = document.getElementById("id").value;
 	if(accessDesc == "") accessDesc = accessName;
 	$("#form1").append("<div class='temp' id='row" + id + "' style='position:absolute; top:" + theTop + "px; left:0px;'><label for='txt" + id + "'>" + accessDesc + " <input tabindex='"+tabIndex+"' type='text' size='20' name='" + name + "' id='"+ name + "' value='' alt='"+accessName+"' title='"+accessName+"' onfocus='sendFocus( this ); ' onclick='doAction( this );' onkeyup='doTextUpdate(this)' style='position:absolute;' ></div>");
@@ -86,22 +90,12 @@ function removeFormField(id) {
 }
 
 
-function sendToActionScript(value) {
- thisMovie("ExternalInterfaceExample").sendToActionScript(value);
-}
-
-function sendToJavaScript(value) {
- //document.forms["form2"].text1.value += "ActionScript says: " + value + "\n";
-}
- 
- 
-
-
 //receives a new tabbing list object/array from Flash and generates the form by looping through the list
 function newTabbingList( obj ){
 
+//alert("newTabbingList");
 	removeAllFormFields();
-	
+
 	var i = 0;
 	var highestTabIndex = 0;
 	var isLastActionStillAvailable = false;
