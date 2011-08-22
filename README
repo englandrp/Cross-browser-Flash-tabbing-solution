@@ -4,15 +4,15 @@
 * Released under MIT license:
 * http://www.opensource.org/licenses/mit-license.php
 * 
-* @author Richard England 2011
-* @see http://www.richardengland.co.uk
+* @author Richard England 2011 and Gamelab UK
+* @see http://www.gamelabuk.com / http://www.richardengland.co.uk
 * @version 0.1
 */
 
 The problem - see http://kb2.adobe.com/cps/155/tn_15586.html
 
 A Flash movie embedded in an HTML page does not receive tabbing focus/key events when 
-the page first loads in a web browser.
+the page first loads in a web browser. The user therefore cannot tab into buttons and interactive elements.
 
 -------------------------------------------------------------------------------------
 
